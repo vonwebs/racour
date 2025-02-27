@@ -103,7 +103,7 @@
             data-sold-out-message="true"
             data-name="product7"
             data-price="899.00"
-            data-image="https://gabbytests.github.io/test/img/pd7.jpg" 
+            data-image="https://gabbytests.github.io/test1/img/pd7.jpg" 
                     >
             <span>Add to cart</span>
             <span class="sold-out-message hidden">Sold out</span>
