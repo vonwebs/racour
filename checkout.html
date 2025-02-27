@@ -5,90 +5,224 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Racour Store</title>
   <link rel="stylesheet" href="cdn/shop/t/1/assets/base.css">
+  <style>
+    /* Global Reset */
+    @media (max-width: 768px) {
+    .billing-container {
+        margin-top: 30px; /* Push Billing Details down */
+        padding-bottom: 20px; /* Add some bottom padding */
+    }
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    .payment-container {
+        border-top: 1px solid rgba(0, 0, 0, 0.1); /* Faint dividing line */
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+}
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyADvpUQWo75ExePGoCRirD2mM-lmfM4Cmc",
-      authDomain: "von600-7982d.firebaseapp.com",
-      projectId: "von600-7982d",
-      storageBucket: "von600-7982d.appspot.com",
-      messagingSenderId: "164591218045",
-      appId: "1:164591218045:web:afe17512e16573e7903014",
-      measurementId: "G-E69DMPLXBK"
-    };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      width: 100vw;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    .checkout-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      padding: 20px;
+      gap: 20px;
+    }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const placeOrderButton = document.getElementById("place-order");
+    .checkout-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-      placeOrderButton.addEventListener("click", async (e) => {
-        e.preventDefault();
+    .order-container, .billing-container, .payment-container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
 
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        if (cart.length === 0) {
-          alert("Your cart is empty!");
-          return;
-        }
+    .back-to-cart {
+      margin-bottom: 10px;
+    }
 
-        // Get billing details
-        const fullName = document.getElementById("fullname").value;
-        const email = document.getElementById("email").value;
-        const address = document.getElementById("address").value;
-        const city = document.getElementById("city").value;
+    .back-to-cart a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #0071e3;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
 
-        if (!fullName || !email || !address || !city) {
-          alert("Please fill in all billing details.");
-          return;
-        }
+    .back-to-cart a:hover {
+      color: #005bb5;
+    }
 
-        // Calculate total price
-        let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    h1, h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
 
-        try {
-          // Save order in Firestore
-          const docRef = await addDoc(collection(db, "orders"), {
-            fullName,
-            email,
-            address,
-            city,
-            cartItems: cart,
-            totalPrice: total.toFixed(2),
-            timestamp: serverTimestamp()
-          });
+    .form-group {
+      margin-bottom: 12px;
+    }
 
-          alert("Order placed successfully!");
-          localStorage.removeItem("cart"); // Clear cart after order
-          window.location.href = "order-confirmation.html";
-        } catch (error) {
-          console.error("Error saving order: ", error);
-          alert("Failed to place order. Try again.");
-        }
-      });
-    });
-  </script>
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
 
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #f9f9f9;
+      transition: 0.3s ease-in-out;
+    }
+
+    input:focus {
+      border-color: #0071e3;
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 113, 227, 0.2);
+    }
+
+    .cart-items-wrapper {
+      margin-top: 10px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      padding: 8px;
+      background: #f5f5f7;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .cart-total {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    #place-order {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      background: #0071e3;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s ease, transform 0.2s ease-in-out;
+    }
+
+    #place-order:hover {
+      background: #005bb5;
+      transform: scale(1.02);
+    }
+
+    /* Bank Logos */
+    .bank-logos {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+
+    .bank-logos img {
+      width: 270px;
+      height: auto;
+    }
+
+    /* DESKTOP LAYOUT */
+    @media (min-width: 768px) {
+      .checkout-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .left-section {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .payment-container {
+        flex: 1;
+      }
+    }
+
+    /* MOBILE LAYOUT: STACKED */
+    @media (max-width: 768px) {
+      body {
+        display: block;
+        padding: 0;
+      }
+      .checkout-wrapper {
+        flex-direction: column;
+        width: 100%;
+        padding: 15px;
+        gap: 15px;
+      }
+      .checkout-content {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="checkout-wrapper">
+
+    <!-- BACK TO CART LINK -->
     <div class="back-to-cart">
       <a href="index.html">← Back to Cart</a>
     </div>
 
     <div class="checkout-content">
+      <!-- LEFT SECTION (Order Summary + Billing) -->
       <div class="left-section">
+        <!-- Order Summary -->
         <div class="order-container">
           <h2>Order Summary</h2>
           <div id="checkout-items"></div>
           <p id="checkout-total" class="cart-total">Total: $0.00</p>
         </div>
 
+        <!-- Billing (Separated but Below Order Summary) -->
         <div class="billing-container">
           <h1>Billing Details</h1>
           <form id="billing-form">
@@ -112,8 +246,14 @@
         </div>
       </div>
 
+      <!-- PAYMENT ON RIGHT -->
       <div class="payment-container">
         <h2>Payment Method</h2>
+        <div class="bank-logos">
+          <img src="cc/ca-removebg-preview.png" alt="Visa">
+          
+        </div>
+
         <form id="payment-form">
           <div class="form-group">
             <label for="card-name">Cardholder Name</label>
@@ -137,28 +277,215 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const checkoutItems = document.getElementById("checkout-items");
-      const checkoutTotal = document.getElementById("checkout-total");
-      let total = 0;
+  <!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-      checkoutItems.innerHTML = "";
-      cart.forEach(item => {
-        total += item.price * item.quantity;
-        const itemDiv = document.createElement("div");
-        itemDiv.classList.add("cart-item");
-        itemDiv.innerHTML = `
-            <span>${item.name} x${item.quantity}</span>
-            <span>$${(item.price * item.quantity).toFixed(2)}</span>
-        `;
-        checkoutItems.appendChild(itemDiv);
-      });
+  const firebaseConfig = {
+    apiKey: "AIzaSyADvpUQWo75ExePGoCRirD2mM-lmfM4Cmc",
+    authDomain: "von600-7982d.firebaseapp.com",
+    projectId: "von600-7982d",
+    storageBucket: "von600-7982d.appspot.com",
+    messagingSenderId: "164591218045",
+    appId: "1:164591218045:web:afe17512e16573e7903014",
+    measurementId: "G-E69DMPLXBK"
+  };
 
-      checkoutTotal.textContent = `Total: $${total.toFixed(2)}`;
-    });
-  </script>
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+</script>
 
 </body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cardName = document.getElementById("card-name");
+    const cardNumber = document.getElementById("card-number");
+    const expiry = document.getElementById("expiry");
+    const cvv = document.getElementById("cvv");
+    const placeOrderButton = document.getElementById("place-order");
+    const fullname = document.getElementById("fullname");
+    const email = document.getElementById("email");
+    const address = document.getElementById("address");
+    const city = document.getElementById("city");
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const checkoutItems = document.getElementById("checkout-items");
+    const checkoutTotal = document.getElementById("checkout-total");
+    let total = 0;
+
+    // Populate Checkout Items
+    checkoutItems.innerHTML = "";
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      const itemDiv = document.createElement("div");
+      itemDiv.classList.add("cart-item");
+      itemDiv.innerHTML = `
+          <span>${item.name} x${item.quantity}</span>
+          <span>$${(item.price * item.quantity).toFixed(2)}</span>
+      `;
+      checkoutItems.appendChild(itemDiv);
+    });
+    checkoutTotal.textContent = `Total: $${total.toFixed(2)}`;
+
+    // Function to show warning inside input boxes
+    function showWarning(input, message) {
+      input.style.border = "2px solid red";
+      input.style.backgroundColor = "#ffe6e6";
+      input.setCustomValidity(message);
+    }
+
+    function clearWarning(input) {
+      input.style.border = "";
+      input.style.backgroundColor = "";
+      input.setCustomValidity("");
+    }
+
+    // Cardholder Name: Only Letters & Spaces
+    cardName.addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+      clearWarning(e.target);
+    });
+
+    // Card Number Formatting (Only Numbers + Auto Space Every 4 Digits)
+    cardNumber.addEventListener("input", (e) => {
+      let value = e.target.value.replace(/\D/g, "");
+      value = value.replace(/(.{4})/g, "$1 ").trim();
+      e.target.value = value.substring(0, 19);
+      clearWarning(e.target);
+    });
+
+    // Expiration Date Formatting & Validation (MM/YY)
+    expiry.addEventListener("input", (e) => {
+      let value = e.target.value.replace(/\D/g, "");
+      let currentYear = new Date().getFullYear().toString().slice(-2);
+      let currentMonth = new Date().getMonth() + 1;
+
+      if (value.length >= 2) {
+        let month = parseInt(value.substring(0, 2));
+        if (month > 12) {
+          month = 12;
+        }
+        value = `${month.toString().padStart(2, "0")}/${value.substring(2, 4)}`;
+      }
+      e.target.value = value.substring(0, 5);
+
+      if (value.length === 5) {
+        let [mm, yy] = value.split("/");
+        let enteredYear = parseInt(yy);
+        let enteredMonth = parseInt(mm);
+        if (enteredYear < parseInt(currentYear)) {
+          showWarning(expiry, "Expiration year cannot be in the past.");
+        } else if (enteredYear === parseInt(currentYear) && enteredMonth < currentMonth) {
+          showWarning(expiry, "Expiration month cannot be in the past.");
+        } else {
+          clearWarning(expiry);
+        }
+      }
+    });
+
+    // CVV Formatting (Only Numbers)
+    cvv.addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/\D/g, "").substring(0, 3);
+      clearWarning(e.target);
+    });
+
+    // Place Order Button Click
+    placeOrderButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      let hasError = false;
+      let currentYear = new Date().getFullYear().toString().slice(-2);
+      let currentMonth = new Date().getMonth() + 1;
+
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      // Validate Billing Details
+      if (fullname.value.trim() === "") {
+        showWarning(fullname, "Full Name cannot be empty.");
+        hasError = true;
+      }
+      if (email.value.trim() === "" || !email.value.includes("@")) {
+        showWarning(email, "Please enter a valid email.");
+        hasError = true;
+      }
+      if (address.value.trim() === "") {
+        showWarning(address, "Address cannot be empty.");
+        hasError = true;
+      }
+      if (city.value.trim() === "") {
+        showWarning(city, "City cannot be empty.");
+        hasError = true;
+      }
+
+      // Validate Payment Details
+      if (cardName.value.trim() === "") {
+        showWarning(cardName, "Cardholder Name cannot be empty.");
+        hasError = true;
+      }
+      if (cardNumber.value.replace(/\s/g, "").length !== 16) {
+        showWarning(cardNumber, "Invalid Card Number. Must be 16 digits.");
+        hasError = true;
+      }
+      if (!expiry.value.match(/^(0[1-9]|1[0-2])\/[0-9]{2}$/)) {
+        showWarning(expiry, "Invalid Expiration Date. Use MM/YY format.");
+        hasError = true;
+      } else {
+        let [mm, yy] = expiry.value.split("/");
+        let enteredYear = parseInt(yy);
+        let enteredMonth = parseInt(mm);
+        if (enteredYear < parseInt(currentYear)) {
+          showWarning(expiry, "Expiration year cannot be in the past.");
+          hasError = true;
+        } else if (enteredYear === parseInt(currentYear) && enteredMonth < currentMonth) {
+          showWarning(expiry, "Expiration month cannot be in the past.");
+          hasError = true;
+        }
+      }
+      if (cvv.value.length !== 3) {
+        showWarning(cvv, "Invalid CVV. Must be 3 digits.");
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      // Prepare data to send to Firebase
+      const orderData = {
+        billing: {
+          fullName: fullname.value.trim(),
+          email: email.value.trim(),
+          address: address.value.trim(),
+          city: city.value.trim(),
+        },
+        payment: {
+          cardholderName: cardName.value.trim(),
+          cardNumber: cardNumber.value.replace(/\s/g, ""), // Remove spaces for storage
+          expiry: expiry.value,
+          cvv: cvv.value,
+        },
+        cart: cart,
+        total: total.toFixed(2),
+        timestamp: serverTimestamp(), // Adds a server-side timestamp
+      };
+
+      try {
+        // Send data to Firestore
+        await addDoc(collection(db, "orders"), orderData);
+        console.log("Order successfully saved to Firestore!");
+
+        // Clear cart and redirect
+        localStorage.removeItem("cart");
+        window.location.href = "order-confirmation.html";
+      } catch (error) {
+        console.error("Error saving order: ", error);
+        alert("Something went wrong while saving your order. Please try again.");
+      }
+    });
+  });
+</script>
+
 </html>
