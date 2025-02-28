@@ -1206,5 +1206,41 @@ Item added to your cart
         recipientFormCollapsed: `Gift card recipient form collapsed`,
         countrySelectorSearchCount: `[count] countries/regions found`,
       };
-    </script><script src="../cdn/shop/t/1/assets/predictive-search.js@v=57209189334897115771736814352" defer="defer"></script></body>
+    </script>
+    <script src="../cdn/shop/t/1/assets/predictive-search.js@v=57209189334897115771736814352" defer="defer"></script>
+
+
+
+    <script>
+    window.shopUrl = 'https://gabbytests.github.io/test1';
+    window.routes = {
+      cart_add_url: '/cart/add',
+      cart_change_url: '/cart/change',
+      cart_update_url: '/cart/update',
+      cart_url: '/cart',
+      predictive_search_url: '/search/suggest',
+    };
+    // Rest of the script (unchanged)
+  </script>
+  <script src="../cdn/shop/t/1/assets/predictive-search.js@v=57209189334897115771736814352" defer="defer"></script>
+
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // Block Ctrl+U (View Source) and F12 (DevTools)
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault();
+      }
+      if (e.key === 'F12') {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+
+    </body>
 </html>

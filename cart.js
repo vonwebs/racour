@@ -69,8 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cartItem.style.padding = "12px";
             cartItem.style.borderBottom = "1px solid #e0e0e0";
 
-            // Ensure the image URL is valid
-            const imageUrl = item.image || "https://via.placeholder.com/50"; // Fallback image if none is provided
+            const imageUrl = item.image || "https://via.placeholder.com/50";
             cartItem.innerHTML = `
                 <div style="display: flex; align-items: center; gap: 12px;">
                     <img src="${imageUrl}" alt="${item.name}" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">
@@ -93,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("cart", JSON.stringify(cart));
         updateCartCount();
 
-        // Attach event listeners AFTER adding items
         document.querySelectorAll(".increase-quantity").forEach(button => {
             button.addEventListener("click", (e) => {
                 e.stopPropagation();
@@ -122,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const btn = e.currentTarget;
             const name = btn.getAttribute("data-name");
             const price = parseFloat(btn.getAttribute("data-price"));
-            const image = btn.getAttribute("data-image") || ""; // Ensure image URL is passed
+            const image = btn.getAttribute("data-image") || "";
 
             if (!name || isNaN(price)) return;
 
@@ -159,4 +157,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     updateCartDisplay();
+
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // Block Ctrl+U (View Source) and F12 (DevTools)
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+            e.preventDefault();
+        }
+        if (e.key === 'F12') {
+            e.preventDefault();
+        }
+    });
 });

@@ -3701,6 +3701,23 @@ document.querySelectorAll(".add-to-cart").forEach(button => {
 });
 </script>
 
+<script>
+  // Disable right-click
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // Block Ctrl+U (View Source) and F12 (DevTools) - basic deterrence
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+      e.preventDefault();
+    }
+    if (e.key === 'F12') {
+      e.preventDefault();
+    }
+  });
+</script>
+
 
   </body>
 </html>

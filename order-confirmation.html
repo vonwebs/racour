@@ -130,5 +130,23 @@
     <a href="index.html" class="home-button">Back to Home</a>
   </div>
 
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // Block Ctrl+U (View Source) and F12 (DevTools)
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault();
+      }
+      if (e.key === 'F12') {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+  
 </body>
 </html>
