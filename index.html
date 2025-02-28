@@ -358,6 +358,45 @@
       }
     </style>
 
+<style>
+  @media screen and (min-width: 750px) {
+    header.header {
+      display: flex;
+      justify-content: space-between; /* Spreads items across the header */
+      align-items: center;
+      max-width: 100%;
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    header.header .page-width {
+      max-width: 100%;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .header__inline-menu {
+      order: -1; /* Moves nav to the left */
+      margin-top: 0;
+    }
+    .header__menu-list {
+      display: flex;
+      gap: 2rem;
+    }
+    .header__heading {
+      margin: 0 auto; /* Centers the logo */
+      flex-grow: 0; /* Prevents logo from stretching */
+    }
+    .header__icons {
+      order: 1; /* Ensures cart stays on the right */
+    }
+  }
+</style>
+
+
     <link href="cdn/shop/t/1/assets/base.css@v=159841507637079171801736814350.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="cdn/shop/t/1/assets/component-cart-items.css@v=123238115697927560811736814350.css" media="print" onload="this.media='all'">
       <link rel="preload" as="font" href="https://gabbytests.github.io/test1/cdn/fonts/cormorant/cormorant_n4.97337b60a5e5cfd8eb51f36879679b2587d6c845.woff2?h1=bmc0dnhyLXFkLmFjY291bnQubXlzaG9waWZ5LmNvbQ&amp;h2=ZGVtby1oYXZvLm15c2hvcGlmeS5jb20&amp;h3=cmFjb3VyLnN0b3Jl&amp;hmac=4afbe544b8d82324b0ec9baa85baefb3c6e6ba9f35292d1a70ed686f310cc798" type="font/woff2" crossorigin>

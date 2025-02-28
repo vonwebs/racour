@@ -388,6 +388,47 @@ Shopify.routes.root = "/";</script>
       }
     </style>
 
+    <head>
+  <!-- Existing meta tags, scripts, etc. -->
+  <style data-shopify>
+    /* Your existing Shopify styles */
+  </style>
+  <style>
+    @media screen and (min-width: 750px) {
+      header.header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      header.header .page-width {
+        max-width: 100%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+      .header__inline-menu {
+        position: absolute;
+        left: 2rem;
+        margin-top: 0;
+      }
+      
+      }
+      .header__heading {
+        margin: 0 auto;
+        flex-grow: 0;
+      }
+    }
+  </style>
+  <link href="../cdn/shop/t/1/assets/base.css@v=159841507637079171801736814350.css" rel="stylesheet" type="text/css" media="all" />
+  <!-- Rest of your head content -->
+</head>
+
     <link href="../cdn/shop/t/1/assets/base.css@v=159841507637079171801736814350.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="../cdn/shop/t/1/assets/component-cart-items.css@v=123238115697927560811736814350.css" media="print" onload="this.media='all'">
       <link rel="preload" as="font" href="https://gabbytests.github.io/test1/cdn/fonts/cormorant/cormorant_n4.97337b60a5e5cfd8eb51f36879679b2587d6c845.woff2?h1=bmc0dnhyLXFkLmFjY291bnQubXlzaG9waWZ5LmNvbQ&amp;h2=ZGVtby1oYXZvLm15c2hvcGlmeS5jb20&amp;h3=cmFjb3VyLnN0b3Jl&amp;hmac=4afbe544b8d82324b0ec9baa85baefb3c6e6ba9f35292d1a70ed686f310cc798" type="font/woff2" crossorigin>
@@ -951,7 +992,7 @@ Item added to your cart
     }
   }</style><div class="page-width page-width--narrow section-template--16088786600070__main-padding">
   <h1 class="main-page-title page-title h0 scroll-trigger animate--fade-in">
-    Contact
+    Contact Us
   </h1>
   <div class="rte scroll-trigger animate--slide-in">
     
@@ -960,17 +1001,7 @@ Item added to your cart
 
 
 </section><section id="shopify-section-template--16088786600070__form" class="shopify-section section"><link href="../cdn/shop/t/1/assets/section-contact-form.css@v=124756058432495035521736814353.css" rel="stylesheet" type="text/css" media="all" />
-<style data-shopify>.section-template--16088786600070__form-padding {
-    padding-top: 27px;
-    padding-bottom: 27px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-template--16088786600070__form-padding {
-      padding-top: 36px;
-      padding-bottom: 36px;
-    }
-  }</style><div class="color-scheme-1 gradient">
+<div class="color-scheme-1 gradient">
   <div class="contact page-width page-width--narrow section-template--16088786600070__form-padding"><h2 class="visually-hidden">Contact form</h2><form method="post" action="https://gabbytests.github.io/test1/contact#ContactForm" id="ContactForm" accept-charset="UTF-8" class="isolate scroll-trigger animate--slide-in"><input type="hidden" name="form_type" value="contact" /><input type="hidden" name="utf8" value="✓" /><div class="contact__fields">
         <div class="field">
           <input
