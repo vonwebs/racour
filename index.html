@@ -939,7 +939,53 @@ for (var attr in meta) {
       padding-top: 20px;
       padding-bottom: 20px;
     }
-  }</style><script src="cdn/shop/t/1/assets/cart-notification.js@v=133508293167896966491736814350" defer="defer"></script><sticky-header data-sticky-type="on-scroll-up" class="header-wrapper color-scheme-1 gradient header-wrapper--border-bottom">
+  }
+  
+  .cart-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease; /* Smooth hover effect */
+}
+
+.cart-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #504a4a; /* Muted slate blue from earlier, or adjust to your theme */
+}
+
+.cart-icon:hover svg {
+  fill: #436882; /* Slightly darker on hover */
+  transform: scale(1.1); /* Subtle grow effect */
+}
+
+#cart-count {
+  margin-left: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000; /* Match icon */
+  font-family: 'Cormorant', serif;
+}
+
+.cart-icon:hover #cart-count {
+  color: #436882; /* Sync with hover */
+}
+
+/* Responsive adjustment */
+@media screen and (max-width: 749px) {
+  .cart-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  #cart-count {
+    font-size: 12px;
+  }
+}
+
+</style><script src="cdn/shop/t/1/assets/cart-notification.js@v=133508293167896966491736814350" defer="defer"></script><sticky-header data-sticky-type="on-scroll-up" class="header-wrapper color-scheme-1 gradient header-wrapper--border-bottom">
     <header class="header header--top-center header--mobile-center page-width header--has-menu header--has-account">
 
 <header-drawer data-breakpoint="tablet">
@@ -1025,12 +1071,12 @@ for (var attr in meta) {
       
 
             <!-- Cart Icon with SVG -->
-    <button id="cart-icon" class="cart-icon">
-      <svg class="icon-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-        <path d="M528.12 301.319l47.273-208C579.073 73.846 565.264 64 548.146 64H130.99L121.403 19.495C117.242 7.351 105.498 0 92.322 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h53.333l70.999 316.258c-26.167 12.004-44.333 38.417-44.333 68.742 0 39.701 32.299 72 72 72s72-32.299 72-72c0-39.701-32.299-72-72-72-5.42 0-10.68 1.062-15.525 3.062l-8.337-37.074h295.27c16.686 0 31.214-11.396 34.419-27.684l52.24-229.316c2.176-9.541-2.205-19.034-11.746-21.21zM196 456c-22.091 0-40 17.909-40 40 0 22.091 17.909 40 40 40s40-17.909 40-40c0-22.091-17.909-40-40-40zm240 0c-22.091 0-40 17.909-40 40 0 22.091 17.909 40 40 40s40-17.909 40-40c0-22.091-17.909-40-40-40z"/>
-      </svg>
-      <span id="cart-count">0</span>
-    </button>
+            <button id="cart-icon" class="cart-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+              </svg>
+              <span id="cart-count">0</span>
+            </button>
           
         <span class="visually-hidden">Cart</span>
     </div>
