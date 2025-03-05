@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .form-group { margin-bottom: 10px; }
+        input, button { padding: 8px; margin-top: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        img { width: 50px; height: 50px; object-fit: cover; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <h2>Manage Products</h2>
+        <div>
+            <input type="text" id="product-name" placeholder="Product Name">
+            <input type="number" id="product-price" placeholder="Price">
+            <input type="file" id="product-image">
+            <button onclick="addProduct()">Add Product</button>
+        </div>
+        <table>
+            <thead>
+                <tr><th>Image</th><th>Name</th><th>Price</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="product-list"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        
+        function addProduct() {
+            const name = document.getElementById('product-name').value;
+            const price = document.getElementById('product-price').value;
+            const imageFile = document.getElementById('product-image').files[0];
+            
+            if (!name || !price || !imageFile) {
+                alert('All fields are required');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageUrl = e.target.result;
+                const product = { id: Date.now(), name, price, imageUrl };
+                products.push(product);
+                localStorage.setItem("products", JSON.stringify(products));
+                loadProducts();
+            };
+            reader.readAsDataURL(imageFile);
+        }
+        
+        function loadProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+            
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${product.imageUrl}" alt="${product.name}"></td>
+                    <td>${product.name}</td>
+                    <td>$${product.price}</td>
+                    <td>
+                        <button onclick="editProduct(${product.id})">Edit</button>
+                        <button onclick="deleteProduct(${product.id})">Delete</button>
+                    </td>
+                `;
+                productList.appendChild(row);
+            });
+        }
+        
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            
+            document.getElementById('product-name').value = product.name;
+            document.getElementById('product-price').value = product.price;
+            document.getElementById('product-image').dataset.editing = id;
+        }
+        
+        function deleteProduct(id) {
+            products = products.filter(product => product.id !== id);
+            localStorage.setItem("products", JSON.stringify(products));
+            loadProducts();
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadProducts);
+    </script>
+</body>
+</html>
